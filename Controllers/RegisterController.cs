@@ -32,17 +32,17 @@ namespace JwtTokenApplication.Controllers
                     UserName = userRegisterViewModel.UserName,
                     UserEmail = userRegisterViewModel.UserEmail,
                     UserPassword = userRegisterViewModel.UserPassword,
-                    UserRole = "User".ToString()
+                    UserRole = MessageConstants.UserMessageForRegisterPage
                 };
 
                 _context.Users.Add(user);
                 _context.SaveChanges();
 
-                return Ok(new { message = "User registered successfully" });
+                return Ok(new { userDetails = User, message = "User registered successfully" });
             }
             else
             {
-                return Conflict(new { message = "User already exists" });
+                return StatusCode(409, new { message = "User already exists" });
             }
         }
     }
